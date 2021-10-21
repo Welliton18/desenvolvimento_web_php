@@ -1,7 +1,11 @@
 <?php 
 
     session_start();
-
+    
+    include_once 'conexao.php';
+    include_once 'persistencia.php';
+    include_once 'html.php';
+    
     if(!isset($_SESSION['usuario'])){
         include 'login.php';
     } else {

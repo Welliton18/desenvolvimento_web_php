@@ -9,6 +9,6 @@
 
 ?>
 
-<a href="?desconectar=true">Desconectar</a>
-<hr>
-<h1>Olá <?= $_SESSION['usuario']?></h1>
+    <a href="?desconectar=true">Desconectar</a>
+    <hr>
+    <a href="produto/produto.php">Produto</a>

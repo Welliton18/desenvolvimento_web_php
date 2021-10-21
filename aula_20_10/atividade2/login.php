@@ -1,7 +1,5 @@
 <?php
 
-    include_once 'persistencia.php';
-    
     if(isset($_POST['logar'])){
         $aResult = getUsuarioLogin($_POST['login'], $_POST['senha']);
         if(!empty($aResult)){
@@ -20,3 +18,4 @@
     </br>
     <input type="submit" name='logar'>
 </form>
+
