@@ -1,4 +1,4 @@
-<?php
+<?php 
 
     session_start();
 
@@ -6,4 +6,9 @@
         include 'login.php';
     } else {
         include 'sistema.php';
+    }
+
+    if(isset($_GET['desconectar']) && $_GET['desconectar'] == 'true'){
+        session_destroy();
+        header('Location: index.php');
     }
