@@ -1,7 +1,9 @@
 <?php
+    
+    $oPersistencia = new Persistencia();
 
     if(isset($_POST['logar'])){
-        $aResult = getUsuarioLogin($_POST['login'], $_POST['senha']);
+        $aResult = $oPersistencia->getUsuarioLogin($_POST['login'], $_POST['senha']);
         if(!empty($aResult)){
             $_SESSION['usuario'] = $aResult[0]['nome'];
             header('Location: index.php');

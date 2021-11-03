@@ -2,9 +2,10 @@
 
     session_start();
     
-    include_once 'conexao.php';
+    include_once 'conexao/conexao.php';
     include_once 'persistencia.php';
     include_once 'html.php';
+    include_once 'produto/consulta_produto.php';
     
     if(!isset($_SESSION['usuario'])){
         include 'login.php';
