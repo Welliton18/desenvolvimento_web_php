@@ -18,7 +18,7 @@ class html {
         $this->criaCampos(['1' => '1', '2' => '2', '3' => '3', 'mult' => 'X']);
         $this->criaCampos(['4' => '4', '5' => '5', '6' => '6', 'subt' => '-']);
         $this->criaCampos(['7' => '7', '8' => '8', '9' => '9', 'soma' => '+']);
-        $this->criaCampos(['div' => '%', '0' => '0', 'limpar' => 'C', 'igual' => '=']);
+        $this->criaCampos(['div' => '%', 'zero' => '0', 'limpar' => 'C', 'igual' => '=']);
     }
     
     private function criaVisor() {

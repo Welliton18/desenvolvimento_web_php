@@ -8,18 +8,22 @@ class processaDados {
     
     private function processaDados() {
         foreach ($_POST as $sKey => $sValue) {
+            if(!$this->isNumero($sValue) && (!isset($_SESSION['valor_visor']) || is_null($_SESSION['valor_visor']))){
+                    return;
+                }
             if(isset($_SESSION['reset']) && $_SESSION['reset']){
-                is_numeric($sValue) ? $_SESSION['valor_visor'] = null : true;
+                $this->isNumero($sValue) ? $_SESSION['valor_visor'] = null : true;
+                $this->isNumero($sValue) ? $_SESSION['valor1'] = null : true;
                 $_SESSION['reset'] = false;
-            }
+            } 
             if($sKey == 'limpar'){
                 $_SESSION['valor_visor'] = null;
                 $_SESSION['operador'] = null;
             } else if($sKey === 'igual'){
                 $this->calcula();
             } else {
-                $_SESSION['valor_visor'] .= $sValue;
-                if(!is_numeric($sValue)){
+                isset($_SESSION['valor_visor']) ? $_SESSION['valor_visor'] .= $sValue : $_SESSION['valor_visor'] = $sValue;
+                if(!$this->isNumero($sValue)){
                     $_SESSION['operador'] = $sValue;
                 } else if(!isset($_SESSION['operador']) || is_null($_SESSION['operador'])){
                     $_SESSION['valor1'] = $_SESSION['valor_visor'];
@@ -45,12 +49,16 @@ class processaDados {
                 $_SESSION['valor_visor'] = $_SESSION['valor1'] / $_SESSION['valor2'] ;
                 break;
         }
+        $_SESSION['valor1'] = $_SESSION['valor_visor'];
         $_SESSION['reset'] = true;
         $_SESSION['operador'] = null;
-        $_SESSION['valor1'] = null;
         $_SESSION['valor2'] = null;
     }
-
+    
+    private function isNumero($iNumero) {
+        $aNumeros = ['zero', 1, 2, 3, 4, 5, 6, 7, 8, 9];
+        return in_array($iNumero, $aNumeros);
+    }
 
     public function __destruct() {
         header('Location: index.php');
