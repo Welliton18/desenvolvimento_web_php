@@ -21,6 +21,7 @@ class processaDados {
                 $_SESSION['operador'] = null;
             } else if($sKey === 'igual'){
                 $this->calcula();
+                $_SESSION['valor_visor'] = $_SESSION['valor1'];
             } else {
                 isset($_SESSION['valor_visor']) ? $_SESSION['valor_visor'] .= $sValue : $_SESSION['valor_visor'] = $sValue;
                 if(!$this->isNumero($sValue)){
@@ -37,19 +38,18 @@ class processaDados {
     private function calcula() {
         switch (true) {
             case $_SESSION['operador'] === '+':
-                $_SESSION['valor_visor'] = $_SESSION['valor1'] + $_SESSION['valor2'] ;
+                $_SESSION['valor1'] = $_SESSION['valor1'] + $_SESSION['valor2'] ;
                 break;
             case $_SESSION['operador'] === '-':
-                $_SESSION['valor_visor'] = $_SESSION['valor1'] - $_SESSION['valor2'] ;
+                $_SESSION['valor1'] = $_SESSION['valor1'] - $_SESSION['valor2'] ;
                 break;
             case $_SESSION['operador'] === 'X':
-                $_SESSION['valor_visor'] = $_SESSION['valor1'] * $_SESSION['valor2'] ;
+                $_SESSION['valor1'] = $_SESSION['valor1'] * $_SESSION['valor2'] ;
                 break;
             case $_SESSION['operador'] === '%':
-                $_SESSION['valor_visor'] = $_SESSION['valor1'] / $_SESSION['valor2'] ;
+                $_SESSION['valor1'] = $_SESSION['valor1'] / $_SESSION['valor2'] ;
                 break;
         }
-        $_SESSION['valor1'] = $_SESSION['valor_visor'];
         $_SESSION['reset'] = true;
         $_SESSION['operador'] = null;
         $_SESSION['valor2'] = null;
