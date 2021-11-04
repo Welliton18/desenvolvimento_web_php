@@ -1,0 +1,13 @@
+#tabela_calculadora input{
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+}
+
+#visor {
+    width: 480px;
+    height: 50px;
+    font-size: 40px;
+    text-align: right;
+    padding-right: 16px;
+}
