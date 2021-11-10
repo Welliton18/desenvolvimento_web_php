@@ -26,6 +26,29 @@ class Html{
         echo "{$sCampo}><br>";
     }
     
+    public function criaBotaoVoltar($sAction = '../') {
+        echo "<form action='{$sAction}' method='POST'>";
+        echo "<input type='submit' name='voltar' value='Voltar'></td>";
+        echo '</form>';
+    }
+    
+    public function criaBotaoIncluir() {
+        echo '<form action="incluir_produto.php" method="POST">';
+        echo '<input type="submit" name="incluir_produto" value="Incluir">';
+        echo '</form>';
+    }
+    
+    public function criaBotaoAlterar($iCodigo) {
+        echo '<td><form action="alterar_produto.php" method="POST">';
+        echo "<input type='submit' name='alterarProduto_{$iCodigo}' value='Alterar'>";
+        echo '</form></td>';
+    }
+    
+    public function criaBotaoExcluir($iCodigo) {
+        echo '<td><form method="POST">';
+        echo "<input type='submit' name='excluirProduto_{$iCodigo}' value='Excluir'>";
+        echo '</form></td>';
+    }
 }
 
 ?>

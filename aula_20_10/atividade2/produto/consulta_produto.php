@@ -11,9 +11,10 @@ class ConsultaProduto {
     private $Persistencia;
 
     public function criaTela(){
-        $this->criaBotaoIncluir();
         $oHtml = new Html();
-        echo '<form method="post"><table><tr>';
+        $oHtml->criaBotaoIncluir();
+        $oHtml->criaBotaoVoltar();
+        echo '<table><tr>';
         $aResult = $this->getPersistencia()->getAllProdutos();
         if(empty($aResult)){
             echo 'Não existe nenhum registro nesta consulta';
@@ -27,22 +28,15 @@ class ConsultaProduto {
                 foreach ($aLinha as $sNome => $xValorLinha) {
                     !is_numeric($sNome) ? $oHtml->criaColuna($sNome, $xValorLinha) : true;
                 }
-    //            $iIdProduto = $aLinha['id'];
-    //            echo "<td><input type='submit' name='alterarProduto_{$iIdProduto}' value='Alterar'></td>";
-    //            echo "<td><input type='submit' name='excluirProduto_{$iIdProduto}' value='Excluir'></td>";
-    //            echo '<td><button><a href="alterar_produto.php">Alterar</a></button></td>';
-    //            echo '</tr>';
+                $iCodigo = $aLinha['Código'];
+                $oHtml->criaBotaoAlterar($iCodigo);
+                $oHtml->criaBotaoExcluir($iCodigo);
+                echo '</tr>';
             }
-            echo '</form>';
+            echo '</table>';
         }
     }
     
-    private function criaBotaoIncluir() {
-        echo '<form action="incluir_produto.php" method="POST">';
-        echo '<input type="submit" name="incluir_produto" value="Incluir">';
-        echo '</form>';
-    }
-
     private function getPersistencia() {
         if(!isset($this->Persistencia)){
             $this->Persistencia = new Persistencia();

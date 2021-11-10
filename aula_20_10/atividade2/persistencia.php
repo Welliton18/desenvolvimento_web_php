@@ -29,11 +29,11 @@ class Persistencia {
         return $oSql->fetchAll();
     }
 
-    public function excluirProduto($xValor){
+    public function excluirProduto($iValor){
         $oConexao = new Conexao();
         $oSql = $oConexao->getSql()->prepare(
-            "DELETE PRODUTO 
-              WHERE codigo = {$xValor}");
+            "DELETE FROM PRODUTO 
+              WHERE codigo = {$iValor}");
         return $oSql->execute();
     }
     
@@ -61,9 +61,35 @@ class Persistencia {
     public function getUltimoCodigo() {
         $oConexao = new Conexao();
         $oSql = $oConexao->getSql()->prepare(
-            "select max(codigo)+1 as codigo from PRODUTO");
+            "select coalesce(max(codigo), 0)+1 as codigo from PRODUTO");
         $oSql->execute();
         return $oSql->fetchAll()[0]['codigo'];
+    }
+    
+    public function getProdutoByCodigo($iCodigo){
+        $oConexao = new Conexao();
+        $oSql = $oConexao->getSql()->prepare(
+            "SELECT codigo,
+                    nome,
+                    marca,
+                    valor,
+                    quantidade_estoque
+               FROM PRODUTO 
+              WHERE codigo = {$iCodigo}");
+        $oSql->execute();
+        return $oSql->fetchAll()[0];
+    }
+    
+    public function updateProduto($aValores) {
+        $oConexao = new Conexao();
+        $oSql = $oConexao->getSql()->prepare(
+            "UPDATE PRODUTO 
+                SET nome = '{$aValores['nome']}',
+                    marca = '{$aValores['marca']}',
+                    valor = {$aValores['valor']},
+                    quantidade_estoque = {$aValores['quantidade_estoque']} 
+              WHERE codigo = {$aValores['codigo']}");
+        return $oSql->execute();
     }
 
 }
