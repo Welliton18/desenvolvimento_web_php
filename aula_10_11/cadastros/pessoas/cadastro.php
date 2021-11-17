@@ -3,9 +3,7 @@
         try {
             $stmt = $conn->prepare(
                 'INSERT INTO pessoas (nome) values (:nome)');
-            //$stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute(array('nome' => $_POST['nome']));
-            //$stmt->execute();
         } catch(PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }
