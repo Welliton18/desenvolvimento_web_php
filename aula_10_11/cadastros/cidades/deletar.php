@@ -21,7 +21,6 @@
     }
     $stmt->execute();
     $r = $stmt->fetchAll();
-    print_r($r);
 ?>
 <form method="post">
     <input type="text" name="nome" value="<?=$r[0]['nome']?>" disabled>

@@ -2,11 +2,10 @@
     if (isset($_POST['alterar'])) {
         try {
             $stmt = $conn->prepare(
-                "UPDATE estados 
-                    SET id    = {$_POST['id']}, 
-                        sigla = '{$_POST['sigla']}', 
-                        nome  = '{$_POST['nome']}' 
-                  WHERE id = {$_POST['id']}");
+                'UPDATE estados SET nome = :nome, sigla =:sigla WHERE id = :id');
+            $stmt->execute(array('nome'  => $_POST['nome'],
+                                 'sigla' => $_POST['sigla'],
+                                 'id'    => $_GET['id']));
         } catch(PDOException $e) {
             echo 'ERROR: ' . $e->getMessage();
         }

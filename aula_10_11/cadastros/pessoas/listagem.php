@@ -9,14 +9,7 @@
         } else {
             $stmt = $conn->prepare('SELECT * FROM pessoas');
         }
-        //$stmt->execute(array('id' => $id));
         $stmt->execute();
-   
-        //while($row = $stmt->fetch()) {
-        //while($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-            //print_r($row);
-        //}
- 
         $result = $stmt->fetchAll();
 ?>
 <table border="1" class="table table-striped">
