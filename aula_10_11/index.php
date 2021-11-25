@@ -17,7 +17,8 @@
         if (!isset($_GET['pagina'])){
             include LAYOUTS.'home.php';
         } else {
-            include CADASTROS.$_GET['modulo'].'/'.$_GET['pagina'].'.php';
+            $sPagina = strpos($_GET['pagina'], '?') > 0 ? substr($_GET['pagina'], 0, strpos($_GET['pagina'], '?')) : $_GET['pagina'];
+            include CADASTROS.$_GET['modulo'].'/'.$sPagina.'.php';
         }
     }
     

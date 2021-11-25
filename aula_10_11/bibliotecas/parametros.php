@@ -9,3 +9,4 @@
     define('DB_USER','root');
     define('DB_SENHA','');
     define('DB_BASE','aula_06_10');
+    define('REGISTROS_PAGINA','5');

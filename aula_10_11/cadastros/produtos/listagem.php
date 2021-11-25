@@ -1,13 +1,27 @@
 <?php
+
+    $iPaginaAtual = isset($_GET['paginaAtual']) ? $_GET['paginaAtual'] : 1;
+    try {
+        $oSqlCount = $conn->prepare('SELECT count(1) from produto');
+        $oSqlCount->execute();
+        $iQtdRegistros = $oSqlCount->fetchAll()[0][0];
+    } catch(PDOException $e) {
+        echo 'ERROR: ' . $e->getMessage();
+    }
+
     if (isset($_GET['codigo']))
         $codigo = $_GET['codigo'];
  
     try {
+        $iOffset = ($iPaginaAtual-1) * REGISTROS_PAGINA;
         if (isset($codigo)) {
             $stmt = $conn->prepare('SELECT * FROM produto WHERE codigo = :codigo');
             $stmt->bindParam(':codigo', $codigo, PDO::PARAM_INT);
         } else {
-            $stmt = $conn->prepare('SELECT * FROM produto');
+            $stmt = $conn->prepare('SELECT * 
+                                      FROM produto 
+                                     LIMIT '.REGISTROS_PAGINA.'
+                                    OFFSET '. $iOffset);
         }
         $stmt->execute();
    
@@ -42,9 +56,13 @@
         } else {
             echo "Nenhum resultado retornado.";
         }
-?>
-</table>
-<?php
+        echo '</table>';
+        
+        for ($i=1; $i <= ceil($iQtdRegistros / REGISTROS_PAGINA); $i++) {
+            if((int) $iPaginaAtual !== $i){
+                echo "<a href='?modulo=produtos&pagina=listagem&paginaAtual={$i}' style='margin-right: 4px'>{$i}</a>"; 
+            }
+        }
     } catch(PDOException $e) {
         echo 'ERROR: ' . $e->getMessage();
     }
